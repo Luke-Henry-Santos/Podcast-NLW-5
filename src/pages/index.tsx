@@ -5,7 +5,11 @@ import { format, parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
 import { api } from '../services/api'
+
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString'
+
+import { useContext } from 'react'
+import { PlayerContext } from '../contexts/PlayerContext'
 
 import styles from './home.module.scss'
 
@@ -26,6 +30,8 @@ type HomeProps = {
 }
 
 export default function Home({ allEpisodes, lastEpisodes }: HomeProps) {
+  const { play } = useContext(PlayerContext)
+
   return (
     <div className={styles.homepage}>
       <section className={styles.lastEpisodes}>
@@ -51,7 +57,7 @@ export default function Home({ allEpisodes, lastEpisodes }: HomeProps) {
                   <span>{episode.durationAsString}</span>
                 </div>
 
-                <button type="button">
+                <button type="button" onClick={() => play(episode)}>
                   <img src="/play-green.svg" alt="Tocar episódio" />
                 </button>
               </li>
@@ -142,6 +148,6 @@ export const getStaticProps: GetStaticProps = async () => {
       lastEpisodes,
       allEpisodes,
     },
-    revalidate: 60 * 60 * 8,
+    revalidate: 60 * 60 * 8, //8 hours
   }
 }
