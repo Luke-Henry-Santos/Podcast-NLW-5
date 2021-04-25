@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/Capa.png" alt="Podcastr">
+  <img src="public/Capa.png" alt="Podcastr">
 </p>
 
 ## Description
